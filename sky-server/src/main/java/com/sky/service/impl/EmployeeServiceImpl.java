@@ -83,10 +83,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         // 2.2.默认状态 开启(1)
         employee.setStatus(ENABLE);
         // 2.3.默认时间now, 默认user - admin(id)
-        employee.setCreateTime(LocalDateTime.now());
+        /*employee.setCreateTime(LocalDateTime.now());
         employee.setUpdateTime(LocalDateTime.now());
         employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());*/
         // 3.插入数据库数据
         employeeMapper.insert(employee);
     }
@@ -137,8 +137,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO, employee);
-        employee.setUpdateUser(BaseContext.getCurrentId());
-        employee.setUpdateTime(LocalDateTime.now());
+        /*employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateTime(LocalDateTime.now());*/
         employeeMapper.update(employee);
     }
 }

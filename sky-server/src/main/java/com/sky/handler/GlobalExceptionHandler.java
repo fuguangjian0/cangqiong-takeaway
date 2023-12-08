@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
      * @param ex
      * @return
      */
-    @ExceptionHandler
+    //@ExceptionHandler
     public Result exceptionHandler(SQLIntegrityConstraintViolationException ex){
         //message => Duplicate entry '小智' for key 'idx_username
         String message = ex.getMessage();
