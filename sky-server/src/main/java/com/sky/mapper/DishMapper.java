@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.sky.enumeration.OperationType.INSERT;
 import static com.sky.enumeration.OperationType.UPDATE;
@@ -77,5 +78,20 @@ public interface DishMapper {
      */
     @Select("select * from dish where category_id=#{categoryId}")
     List<Dish> getDishesByCategoryId(Long categoryId);
+
+    /**
+     * 根据dish
+     * @param dish
+     * @return
+     */
+    @Select("select * from dish where category_id=#{categoryId}")
+    List<Dish> list(Dish dish);
+
+    /**
+     * 根据条件统计菜品数量
+     * @param map
+     * @return
+     */
+    Integer countByMap(Map map);
 
 }

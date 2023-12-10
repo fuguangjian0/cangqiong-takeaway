@@ -9,10 +9,13 @@ import com.sky.vo.SetmealVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+import static com.sky.constant.RedisKeyConstant.SETMEAL_CACHE;
 
 /**
  * 套餐相关接口
@@ -34,6 +37,7 @@ public class SetmealController {
      */
     @ApiOperation("新增套餐")
     @PostMapping
+    @CacheEvict(cacheNames = SETMEAL_CACHE, key = "#setmealDTO.categoryId") // setmealCache::100
     public Result<String> save(@RequestBody SetmealDTO setmealDTO){
         log.info("新增套餐:{}", setmealDTO);
         setmealService.save(setmealDTO);
@@ -60,6 +64,7 @@ public class SetmealController {
      */
     @ApiOperation("批量删除套餐")
     @DeleteMapping
+    @CacheEvict(cacheNames = SETMEAL_CACHE, allEntries = true) // setmealCache::*
     public Result<String> remove(@RequestParam List<Long> ids){
         log.info("批量删除套餐:{}", ids);
         setmealService.removeBatch(ids);
@@ -72,6 +77,7 @@ public class SetmealController {
      */
     @ApiOperation("修改套餐")
     @PutMapping
+    @CacheEvict(cacheNames = SETMEAL_CACHE, key = "#setmealDTO.categoryId") // setmealCache::100
     public Result<String> update(@RequestBody SetmealDTO setmealDTO){
         log.info("修改套餐:{}", setmealDTO);
         setmealService.update(setmealDTO);
@@ -86,6 +92,7 @@ public class SetmealController {
      */
     @ApiOperation("起售停售套餐")
     @PostMapping("/status/{status}")
+    @CacheEvict(cacheNames = SETMEAL_CACHE, key = "#setmealId") // setmealCache::100
     public Result<String> startOrStop(@PathVariable Integer status,
                                       @RequestParam("id") Long setmealId){
         log.info("起售停售套餐:status:{},setmealId:{}", status, setmealId);
@@ -105,6 +112,7 @@ public class SetmealController {
         SetmealVO setmealVO = setmealService.getById(id);
         return Result.success(setmealVO);
     }
+
 
 
 
